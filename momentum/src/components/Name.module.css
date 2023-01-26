@@ -29,13 +29,11 @@
 }
 
 .containerWrapper {
-  width: 100%;
   position: relative;
   text-align: center;
 }
 
 .greetingContainer {
-  width: 100vw;
   font-size: 50px;
   font-family: "Roboto", sans-serif;
   margin-bottom: 30px;
@@ -47,17 +45,29 @@
 .logText {
   font-family: "Roboto", sans-serif;
   font-size: 3rem;
-  white-space: nowrap;
-  margin-top: 20px;
 }
 
 .button {
-  cursor: pointer;
-  outline: none;
   position: absolute;
   right: -15px;
   top: 0;
-  width: 13px;
-  height: 13px;
+  width: 17px;
+  height: 17px;
+  background: url(https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbwufyN%2FbtrXbszOLWr%2Fiaj7tGKJmPVlSqTKkN7NMk%2Fimg.png)
+    no-repeat center/cover;
   display: block;
+  cursor: pointer;
+  border: none;
+}
+
+/* 로그인 후 명기되는 이름 box */
+.logName {
+  font-size: 3rem;
+  margin-top: 20px;
+  outline: none;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom-color 300ms ease-in-out;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

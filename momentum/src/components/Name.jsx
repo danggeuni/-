@@ -23,7 +23,6 @@ export default function Name() {
     e.preventDefault();
     localStorage.setItem(NAME, name);
     setHide(true);
-    setName("");
   }
 
   return (
@@ -47,12 +46,12 @@ export default function Name() {
         ></input>
 
         <button
-          className={styles.button}
+          className={cx(styles.button, { [styles.hide]: !hide })}
           type={"button"}
           datatype={"edit"}
         ></button>
 
-        <span className={cx(styles.logText, { [styles.hide]: !hide })}>
+        <span className={cx(styles.logName, { [styles.hide]: !hide })}>
           {localStorage.getItem(NAME)}
         </span>
       </form>

@@ -1,0 +1,42 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 60px;
+  padding: 0 1em;
+}
+
+.quote {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 2;
+}
+
+.quote:hover .content {
+  transform: translateY(-12px);
+  color: deepskyblue;
+}
+
+.quote:hover .author {
+  transform: translateY(12px);
+  opacity: 1;
+  color: deepskyblue;
+}
+
+.content {
+  position: relative;
+  text-align: center;
+  transition: all 300ms ease-in-out;
+  cursor: default;
+}
+
+.author {
+  position: absolute;
+  margin-left: 0.5em;
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+  cursor: default;
+}

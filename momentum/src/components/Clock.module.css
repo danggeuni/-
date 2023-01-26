@@ -2,7 +2,6 @@
 
 .clock {
   font-family: "Roboto", sans-serif;
-  width: 100vw;
 
   display: flex;
   justify-content: center;
@@ -10,5 +9,5 @@
   font-size: 9rem;
   color: tomato;
 
-  margin-bottom: 25px;
+  margin: 0 auto 2rem;
 }
