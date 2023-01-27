@@ -5,6 +5,7 @@ import cx from "clsx";
 export default function Name() {
   const [name, setName] = useState("");
   const [hide, setHide] = useState(false);
+  const [nameEdit, setNameEdit] = useState(true);
   const NAME = "greeting";
 
   // 시작 시 로컬스토리지에 data가 null일 경우, 입력란이 보여야 한다.
@@ -23,6 +24,10 @@ export default function Name() {
     e.preventDefault();
     localStorage.setItem(NAME, name);
     setHide(true);
+  }
+
+  function editToggle() {
+    setNameEdit(false);
   }
 
   return (
@@ -45,15 +50,20 @@ export default function Name() {
           required
         ></input>
 
-        <button
-          className={cx(styles.button, { [styles.hide]: !hide })}
-          type={"button"}
-          datatype={"edit"}
-        ></button>
+        <div className={styles.namewrapper}>
+          <input
+            className={cx(styles.logName, { [styles.hide]: !hide })}
+            value={localStorage.getItem(NAME)}
+            readOnly={nameEdit ? true : false}
+          ></input>
 
-        <span className={cx(styles.logName, { [styles.hide]: !hide })}>
-          {localStorage.getItem(NAME)}
-        </span>
+          <button
+            onClick={editToggle}
+            className={cx(styles.button, { [styles.hide]: !hide })}
+            type={"button"}
+            datatype={"edit"}
+          ></button>
+        </div>
       </form>
     </div>
   );

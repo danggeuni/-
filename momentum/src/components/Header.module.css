@@ -49,18 +49,23 @@
   border: none;
   border-bottom: 1px solid black;
   outline: 0;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.button {
+  width: 14px;
+  height: 14px;
+  margin: 0 auto;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  background: url("../assets/search-icon.svg") no-repeat center/cover;
+  border: 0;
+  cursor: pointer;
 }
 
 .active {
   max-width: 100%;
   opacity: 1;
   pointer-events: visible;
-}
-
-.button {
-  content: "";
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  margin: 0 auto;
 }

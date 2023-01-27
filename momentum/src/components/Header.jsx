@@ -5,10 +5,15 @@ import styles from "./Header.module.css";
 
 export default function Header() {
   const [search, setSearch] = useState("");
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
 
   function activeToggle() {
     setActive(!active);
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+    window.open("https://www.google.co.kr/search?q=" + search);
   }
 
   return (
@@ -19,13 +24,15 @@ export default function Header() {
           Search
         </button>
         <div className={styles.inputWrapper}>
-          <form className={styles.form}>
+          <form onSubmit={onSubmit} className={styles.form}>
             <input
               className={cx(styles.input, { [styles.active]: active })}
               onChange={(e) => setSearch(e.target.value)}
               value={search}
             ></input>
-            <button className={styles.button}></button>
+            <button
+              className={cx(styles.button, { [styles.active]: active })}
+            ></button>
           </form>
         </div>
       </div>
