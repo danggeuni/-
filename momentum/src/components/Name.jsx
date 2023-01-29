@@ -28,6 +28,7 @@ export default function Name() {
 
   function editToggle() {
     setNameEdit(false);
+    localStorage.setItem(NAME, name);
   }
 
   return (
@@ -49,21 +50,25 @@ export default function Name() {
           placeholder={"What's your name?"}
           required
         ></input>
+      </form>
 
-        <div className={styles.namewrapper}>
-          <input
-            className={cx(styles.logName, { [styles.hide]: !hide })}
-            value={localStorage.getItem(NAME)}
-            readOnly={nameEdit ? true : false}
-          ></input>
+      <form onSubmit={editToggle}>
+        <input
+          onChange={(e) => setName(e.target.value)}
+          className={cx(
+            styles.logName,
+            { [styles.hide]: !hide },
+            { [styles.nameEdit]: !nameEdit }
+          )}
+          value={nameEdit ? localStorage.getItem(NAME) : name}
+          readOnly={nameEdit ? true : false}
+        ></input>
 
-          <button
-            onClick={editToggle}
-            className={cx(styles.button, { [styles.hide]: !hide })}
-            type={"button"}
-            datatype={"edit"}
-          ></button>
-        </div>
+        <button
+          onClick={editToggle}
+          className={cx(styles.button, { [styles.hide]: !hide })}
+          type={"button"}
+        ></button>
       </form>
     </div>
   );

@@ -14,6 +14,7 @@ export default function Header() {
   function onSubmit(e) {
     e.preventDefault();
     window.open("https://www.google.co.kr/search?q=" + search);
+    setSearch("");
   }
 
   return (
