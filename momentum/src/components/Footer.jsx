@@ -1,43 +1,20 @@
 import axios from "axios";
-import { useEffect, useReducer, useState, useRef } from "react";
+import { useEffect, useState, useContext } from "react";
 import styles from "./Footer.module.css";
 import cx from "clsx";
-
-// reducer CRUD 함수
-const reducer = (state, action) => {
-  let newState = [];
-
-  switch (action.type) {
-    case "CREATE": {
-      newState = [action.data, ...state];
-      break;
-    }
-
-    case "REMOVE": {
-      newState = state.filter((item) => item.id !== action.targetId);
-      break;
-    }
-
-    case "EDIT": {
-      newState = state.map((item) =>
-        item.id === action.targetId ? { ...action.data } : item
-      );
-      break;
-    }
-
-    default:
-      return state;
-  }
-  localStorage.setItem("list", JSON.stringify(newState));
-  return newState;
-};
+import { stateContext } from "../App";
+import { dispatchContext } from "../App";
+import Button from "./Button";
 
 export default function Footer() {
   const [text, setData] = useState({ content: "", author: "" });
   const [toggleOn, setToggleon] = useState(false);
+  const [hide, setHide] = useState(false);
   const [todoText, setTodoText] = useState("");
-  const dataId = useRef(0);
-  const [data, dispatch] = useReducer(reducer, []);
+
+  const { onCreate, onDelete } = useContext(dispatchContext);
+
+  const list = useContext(stateContext);
 
   useEffect(() => {
     async function fetch() {
@@ -49,7 +26,11 @@ export default function Footer() {
     fetch();
   }, []);
 
-  //
+  useEffect(() => {
+    if (localStorage.getItem("list")) {
+      setHide(true);
+    }
+  }, []);
 
   // input의 값 state 만들고, form으로 submit시 local에 넘어가야함.
   // form의 submit의 state는 배열로 진행하고, setState([newData,...state]) 형식으로 가야함
@@ -60,22 +41,17 @@ export default function Footer() {
     setToggleon(!toggleOn);
   }
 
-  // 아이템 생성 함수
-  const onCreate = (content) => {
-    dispatch({
-      type: "CREATE",
-      state: {
-        id: dataId.current,
-        content,
-      },
-    });
-    dataId.current += 1;
-  };
-
   // 이벤트를 막고 input value를 로컬로 보내자.
-  function todoSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
+
     onCreate(todoText);
+    setTodoText("");
+    setHide(true);
+  }
+
+  function onRemove(item) {
+    onDelete(item.id);
   }
 
   return (
@@ -100,10 +76,24 @@ export default function Footer() {
             <header className={styles.todoHeader}>
               <h2 className={styles.todoTitle}>ToDoList</h2>
             </header>
-
-            <form className={styles.continerForm} onSubmit={todoSubmit}>
+            <form className={styles.continerForm} onSubmit={handleSubmit}>
               <ul className={styles.list}>
-                <p className={styles.noList}>Make your List 👇</p>
+                <p className={cx(styles.noList, { [styles.hide]: hide })}>
+                  Make your List 👇
+                </p>
+
+                {list.map((i) => (
+                  <li className={styles.listContainer} key={i.id}>
+                    <input type={"checkbox"}></input>
+                    {i.content}
+
+                    <button
+                      type={"button"}
+                      className={styles.delButton}
+                      onClick={onRemove}
+                    ></button>
+                  </li>
+                ))}
               </ul>
               <input
                 onChange={(e) => setTodoText(e.target.value)}

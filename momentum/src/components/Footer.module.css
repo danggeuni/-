@@ -125,3 +125,21 @@
   width: 20px;
   height: 20px;
 }
+
+.hide {
+  display: none;
+}
+
+.listContainer {
+  display: flex;
+  align-items: center;
+}
+
+.delButton {
+  width: 13px;
+  height: 13px;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: auto;
+  cursor: pointer;
+}
