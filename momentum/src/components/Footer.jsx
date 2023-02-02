@@ -4,17 +4,18 @@ import styles from "./Footer.module.css";
 import cx from "clsx";
 import { stateContext } from "../App";
 import { dispatchContext } from "../App";
-import Button from "./Button";
 
 export default function Footer() {
   const [text, setData] = useState({ content: "", author: "" });
+  const [hidden, setHidden] = useState(false);
   const [toggleOn, setToggleon] = useState(false);
-  const [hide, setHide] = useState(false);
   const [todoText, setTodoText] = useState("");
 
   const { onCreate, onDelete } = useContext(dispatchContext);
 
   const list = useContext(stateContext);
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     async function fetch() {
@@ -24,12 +25,6 @@ export default function Footer() {
       setData({ content: response.data.content, author: response.data.author });
     }
     fetch();
-  }, []);
-
-  useEffect(() => {
-    if (localStorage.getItem("list")) {
-      setHide(true);
-    }
   }, []);
 
   // input의 값 state 만들고, form으로 submit시 local에 넘어가야함.
@@ -47,11 +42,12 @@ export default function Footer() {
 
     onCreate(todoText);
     setTodoText("");
-    setHide(true);
+
+    setHidden(true);
   }
 
-  function onRemove(item) {
-    onDelete(item.id);
+  function onRemove(i) {
+    onDelete(i);
   }
 
   return (
@@ -78,7 +74,7 @@ export default function Footer() {
             </header>
             <form className={styles.continerForm} onSubmit={handleSubmit}>
               <ul className={styles.list}>
-                <p className={cx(styles.noList, { [styles.hide]: hide })}>
+                <p className={cx(styles.noList, { [styles.hide]: hidden })}>
                   Make your List 👇
                 </p>
 
@@ -90,7 +86,7 @@ export default function Footer() {
                     <button
                       type={"button"}
                       className={styles.delButton}
-                      onClick={onRemove}
+                      onClick={() => onRemove(i.id)}
                     ></button>
                   </li>
                 ))}

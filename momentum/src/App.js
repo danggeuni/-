@@ -21,7 +21,7 @@ const reducer = (state, action) => {
       break;
     }
 
-    case "REMOVE": {
+    case "DELETE": {
       newState = state.filter((item) => item.id !== action.targetId);
       break;
     }
@@ -62,6 +62,13 @@ function App() {
       }
     }
   }, []);
+
+  useEffect(() => {
+    const localData = localStorage.getItem("list");
+    if (localData) {
+      console.log("테스트입니다.");
+    }
+  }, [data]);
 
   // 아이템 생성 함수
   const onCreate = (content) => {
