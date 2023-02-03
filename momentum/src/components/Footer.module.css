@@ -143,3 +143,8 @@
   margin-left: auto;
   cursor: pointer;
 }
+
+.midLine {
+  text-decoration: line-through;
+  color: #bcbcbc;
+}

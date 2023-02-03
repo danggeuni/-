@@ -10,12 +10,20 @@ export default function Footer() {
   const [hidden, setHidden] = useState(false);
   const [toggleOn, setToggleon] = useState(false);
   const [todoText, setTodoText] = useState("");
+  const [ischecked, setIschecked] = useState(false);
 
-  const { onCreate, onDelete } = useContext(dispatchContext);
+  const { onCreate, onDelete, onChecked } = useContext(dispatchContext);
 
   const list = useContext(stateContext);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setHidden(true);
+
+    if (list.length === 0) {
+      setHidden(false);
+      console.log(list.length);
+    }
+  }, [list]);
 
   useEffect(() => {
     async function fetch() {
@@ -46,8 +54,15 @@ export default function Footer() {
     setHidden(true);
   }
 
+  // 삭제 함수 실행 함수
   function onRemove(i) {
     onDelete(i);
+  }
+
+  // 체크될 경우 style 지정
+  function onClick(i) {
+    console.log(i.id);
+    onChecked(i.id);
   }
 
   return (
@@ -80,8 +95,20 @@ export default function Footer() {
 
                 {list.map((i) => (
                   <li className={styles.listContainer} key={i.id}>
-                    <input type={"checkbox"}></input>
-                    {i.content}
+                    <label>
+                      <input
+                        type={"checkbox"}
+                        onChange={() => onClick(i)}
+                        checked={i.isCheck}
+                      ></input>
+                      <span
+                        className={cx(styles.span, {
+                          [styles.midLine]: ischecked,
+                        })}
+                      >
+                        {i.content}
+                      </span>
+                    </label>
 
                     <button
                       type={"button"}

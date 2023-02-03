@@ -26,10 +26,12 @@ const reducer = (state, action) => {
       break;
     }
 
-    case "EDIT": {
-      newState = state.map((item) =>
-        item.id === action.targetId ? { ...action.data } : item
-      );
+    case "CHECK": {
+      newState = state.map((item) => {
+        if (item.id === action.targetId) {
+          action.isCheck = true;
+        }
+      });
       break;
     }
 
@@ -63,13 +65,6 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    const localData = localStorage.getItem("list");
-    if (localData) {
-      console.log("테스트입니다.");
-    }
-  }, [data]);
-
   // 아이템 생성 함수
   const onCreate = (content) => {
     dispatch({
@@ -77,11 +72,13 @@ function App() {
       data: {
         id: dataId.current,
         content,
+        isCheck: false,
       },
     });
     dataId.current += 1;
   };
 
+  // 아이템 삭제 함수
   const onDelete = (targetId) => {
     dispatch({
       type: "DELETE",
@@ -89,9 +86,14 @@ function App() {
     });
   };
 
+  // 아이템 체크 함수
+  const onChecked = (targetId, isCheck) => {
+    dispatch({ type: "CHECK", targetId, isCheck });
+  };
+
   return (
     <stateContext.Provider value={data}>
-      <dispatchContext.Provider value={{ onCreate, onDelete }}>
+      <dispatchContext.Provider value={{ onCreate, onDelete, onChecked }}>
         <div className="App">
           <Header />
           <div className={"article"}>
