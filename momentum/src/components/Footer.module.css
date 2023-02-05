@@ -147,4 +147,5 @@
 .midLine {
   text-decoration: line-through;
   color: #bcbcbc;
+  transition: all 300ms ease-in-out;
 }

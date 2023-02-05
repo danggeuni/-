@@ -27,9 +27,11 @@ const reducer = (state, action) => {
     }
 
     case "CHECK": {
-      newState = state.map((item) => {
+      newState = [...state];
+      // eslint-disable-next-line array-callback-return
+      newState.map((item) => {
         if (item.id === action.targetId) {
-          action.isCheck = true;
+          item.isChecked = !item.isChecked;
         }
       });
       break;
@@ -72,7 +74,7 @@ function App() {
       data: {
         id: dataId.current,
         content,
-        isCheck: false,
+        isChecked: false,
       },
     });
     dataId.current += 1;
@@ -86,14 +88,16 @@ function App() {
     });
   };
 
-  // 아이템 체크 함수
-  const onChecked = (targetId, isCheck) => {
-    dispatch({ type: "CHECK", targetId, isCheck });
+  const onCheck = (targetId) => {
+    dispatch({
+      type: "CHECK",
+      targetId,
+    });
   };
 
   return (
     <stateContext.Provider value={data}>
-      <dispatchContext.Provider value={{ onCreate, onDelete, onChecked }}>
+      <dispatchContext.Provider value={{ onCreate, onDelete, onCheck }}>
         <div className="App">
           <Header />
           <div className={"article"}>

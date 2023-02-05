@@ -10,9 +10,7 @@ export default function Footer() {
   const [hidden, setHidden] = useState(false);
   const [toggleOn, setToggleon] = useState(false);
   const [todoText, setTodoText] = useState("");
-  const [ischecked, setIschecked] = useState(false);
-
-  const { onCreate, onDelete, onChecked } = useContext(dispatchContext);
+  const { onCreate, onDelete, onCheck } = useContext(dispatchContext);
 
   const list = useContext(stateContext);
 
@@ -21,7 +19,6 @@ export default function Footer() {
 
     if (list.length === 0) {
       setHidden(false);
-      console.log(list.length);
     }
   }, [list]);
 
@@ -61,8 +58,7 @@ export default function Footer() {
 
   // 체크될 경우 style 지정
   function onClick(i) {
-    console.log(i.id);
-    onChecked(i.id);
+    onCheck(i);
   }
 
   return (
@@ -98,12 +94,12 @@ export default function Footer() {
                     <label>
                       <input
                         type={"checkbox"}
-                        onChange={() => onClick(i)}
-                        checked={i.isCheck}
+                        onChange={() => onClick(i.id)}
+                        checked={i.isChecked}
                       ></input>
                       <span
                         className={cx(styles.span, {
-                          [styles.midLine]: ischecked,
+                          [styles.midLine]: i.isChecked,
                         })}
                       >
                         {i.content}
