@@ -3,6 +3,10 @@
 * {
   font-family: "Roboto", sans-serif;
 }
+
+.initText {
+  color: white;
+}
 .nameContainer {
   display: flex;
   flex-direction: column;
@@ -17,8 +21,10 @@
 .name {
   font-size: 50px;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid white;
   text-align: center;
+  background-color: transparent;
+  color: white;
 }
 
 .name:focus {
@@ -46,6 +52,7 @@
 .logText {
   font-family: "Roboto", sans-serif;
   font-size: 3rem;
+  color: white;
 }
 
 .button {
@@ -61,7 +68,6 @@
 /* 로그인 후 명기되는 이름 box */
 .logName {
   font-size: 3rem;
-  margin-top: 20px;
   outline: none;
   border-bottom: 2px solid transparent;
   transition: border-bottom-color 300ms ease-in-out;
@@ -70,6 +76,8 @@
   white-space: nowrap;
   border: none;
   text-align: center;
+  background-color: transparent;
+  color: white;
 }
 
 .namewrapper {

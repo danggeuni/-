@@ -4,9 +4,9 @@ import Clock from "./components/Clock";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Name from "./components/Name";
+import axios from "axios";
 
-import React, { useRef, useReducer, useEffect } from "react";
-import Background from "./components/Background";
+import React, { useRef, useReducer, useEffect, useState } from "react";
 
 // reducer CRUD 함수
 const reducer = (state, action) => {
@@ -53,6 +53,33 @@ function App() {
   const [data, dispatch] = useReducer(reducer, []);
   const dataId = useRef(0);
 
+  const [images, setImages] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        // 요청이 시작 할 때에는 error 와 users 를 초기화하고
+        setError(null);
+        setImages(null);
+        // loading 상태를 true 로 바꿉니다.
+        setLoading(true);
+        const response = await axios.get(
+          "https://api.unsplash.com/search/photos/?query=nature&color=black&orientation=landscape&client_id=4tCQTL567iRyvBp2qbupg1qtYcpX7xAqdbcBf1bxR5U"
+        );
+        const index = Math.floor(Math.random() * response.data.results.length);
+        console.log(response.data.results.length);
+        setImages(response.data.results[index].urls.regular); // 데이터는 response.data 안에 들어있습니다.
+      } catch (e) {
+        setError(e);
+      }
+      setLoading(false);
+    };
+
+    fetchImages();
+  }, []);
+
   useEffect(() => {
     const localData = localStorage.getItem("list");
 
@@ -67,6 +94,12 @@ function App() {
       }
     }
   }, []);
+
+  console.log(images);
+
+  if (loading) return <div>Loading..</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
+  if (!images) return null;
 
   // 아이템 생성 함수
   const onCreate = (content) => {
@@ -99,8 +132,7 @@ function App() {
   return (
     <stateContext.Provider value={data}>
       <dispatchContext.Provider value={{ onCreate, onDelete, onCheck }}>
-        <div className="App">
-          <Background />
+        <div className="App" style={{ backgroundImage: `url(${images})` }}>
           <Header />
           <div className={"article"}>
             <Clock />
