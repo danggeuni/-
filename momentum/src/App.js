@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Name from "./components/Name";
 
 import React, { useRef, useReducer, useEffect } from "react";
+import Background from "./components/Background";
 
 // reducer CRUD 함수
 const reducer = (state, action) => {
@@ -99,6 +100,7 @@ function App() {
     <stateContext.Provider value={data}>
       <dispatchContext.Provider value={{ onCreate, onDelete, onCheck }}>
         <div className="App">
+          <Background />
           <Header />
           <div className={"article"}>
             <Clock />
