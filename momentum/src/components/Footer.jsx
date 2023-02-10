@@ -91,7 +91,7 @@ export default function Footer() {
 
                 {list.map((i) => (
                   <li className={styles.listContainer} key={i.id}>
-                    <label>
+                    <label className={styles.listarray}>
                       <input
                         type={"checkbox"}
                         onChange={() => onClick(i.id)}

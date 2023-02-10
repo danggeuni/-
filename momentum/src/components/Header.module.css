@@ -53,6 +53,7 @@
   font-size: 0.9rem;
   width: 100%;
   background-color: transparent;
+  color: white;
 }
 
 .button {
@@ -64,6 +65,8 @@
   background: url("../assets/search-icon.svg") no-repeat center/cover;
   border: 0;
   cursor: pointer;
+  -webkit-filter: opacity(0.5) drop-shadow(0 0 0 white);
+  filter: opacity(0.5) drop-shadow(0 0 0 white);
 }
 
 .active {

@@ -89,6 +89,7 @@
 .todoWrapper {
   opacity: 1;
   transform: translateY(-3px);
+  transform: translateX(-10px);
   width: 300px;
 }
 
@@ -99,12 +100,15 @@
 .todoTitle {
   font-size: 1.25rem;
   text-align: left;
+  color: white;
+  margin-left: 5px;
 }
 
 .list {
   overflow-y: scroll;
   max-height: calc(85vh - 135px);
   transition: max-height 300ms ease-in-out;
+  margin-left: 15px;
 }
 
 .noList {
@@ -113,15 +117,18 @@
   padding: 2rem 0;
   opacity: 1;
   transition: all 300ms ease-in-out;
+  color: white;
 }
 
 .listInput {
-  font-weight: 500;
   width: 100%;
   padding: 1em;
   box-sizing: border-box;
   background-color: transparent;
   border: none;
+  outline-style: none;
+  color: white;
+  margin-left: 5px;
 }
 
 .block {
@@ -147,8 +154,18 @@
   cursor: pointer;
 }
 
+.span {
+  color: white;
+  cursor: pointer;
+}
+
 .midLine {
   text-decoration: line-through;
-  color: #bcbcbc;
+  color: gray;
   transition: all 300ms ease-in-out;
+}
+
+.listarray {
+  display: flex;
+  align-items: center;
 }
