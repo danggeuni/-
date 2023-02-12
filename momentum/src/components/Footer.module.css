@@ -146,12 +146,13 @@
 }
 
 .delButton {
-  width: 13px;
-  height: 13px;
+  width: 17px;
+  height: 17px;
   align-items: flex-start;
   justify-content: center;
   margin-left: auto;
   cursor: pointer;
+  fill: white;
 }
 
 .span {

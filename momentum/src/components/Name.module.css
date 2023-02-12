@@ -55,14 +55,13 @@
   color: white;
 }
 
-.button {
+.editButton {
   top: 0;
   width: 17px;
   height: 17px;
-  background: url(https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbwufyN%2FbtrXbszOLWr%2Fiaj7tGKJmPVlSqTKkN7NMk%2Fimg.png)
-    no-repeat center/cover;
   cursor: pointer;
   border: none;
+  fill: white;
 }
 
 /* 로그인 후 명기되는 이름 box */
